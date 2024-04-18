@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.DTO;
 using WebApplication1.Models;
 using WebApplication1.Repository;
@@ -18,7 +19,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        // [Authorize]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAll()
         {
             List<Product> products = productRepository.GetAll();
@@ -42,6 +43,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public ActionResult<GeneralResponse> GetById(int id)
         {
             Product product = productRepository.GetById(id);
@@ -78,6 +80,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult<GeneralResponse> AddProduct(ProductDTO newProductDTO)
         {
             if (ModelState.IsValid == true)
@@ -118,6 +121,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPut]
+        [Authorize]
         public ActionResult<GeneralResponse> Edit(int id, ProductDTO updatedProduct)
         {
             Product Oldproduct = productRepository.GetById(id);
@@ -157,6 +161,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public IActionResult Remove(int id)
         {
             try

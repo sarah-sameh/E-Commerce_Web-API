@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebApplication1.DTO;
@@ -23,6 +24,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAllPayment()
         {
             var paymentsWithUserNames = paymentRepository.GetAll()
@@ -47,6 +49,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("{username}")]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAllByUserName(string username)
         {
             var user = userManager.FindByNameAsync(username).Result;
@@ -80,6 +83,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GeneralResponse>> AddPayment(PaymentDTO paymentDTO)
         {
             var currentUser = await userManager.GetUserAsync(User);
@@ -128,6 +132,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public ActionResult<GeneralResponse> Edit(int id, PaymentDTO updatedPayment)
         {
             Payment OldPayment = paymentRepository.GetById(id);
@@ -165,6 +170,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public ActionResult<GeneralResponse> Remove(int id)
         {
             try

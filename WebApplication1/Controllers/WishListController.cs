@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.DTO;
 using WebApplication1.Models;
@@ -21,6 +22,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAll()
         {
 
@@ -49,6 +51,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public ActionResult<GeneralResponse> GetById(int id)
         {
             var wishList = wishListRepository.GetById(id);
@@ -82,6 +85,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpGet("{username}")]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAllByUserName(string username)
         {
             var user = userManager.FindByNameAsync(username).Result;
@@ -111,6 +115,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GeneralResponse>> AddToWishList(WishListDTO wishListDTO)
         {
             var currentUser = await userManager.GetUserAsync(User);
@@ -153,6 +158,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public ActionResult<GeneralResponse> Edit(int id, WishListDTO updatedWishList)
         {
             WishList OldWishList = wishListRepository.GetById(id);
@@ -186,6 +192,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize]
         public ActionResult<GeneralResponse> RemoveFromCart(int id)
         {
             try

@@ -20,6 +20,7 @@ namespace WebApplication1.Controllers
             this.shipmentRepository = shipmentRepository;
         }
         [HttpGet]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAll()
         {
             var shipmentsWithUserNames = shipmentRepository.GetAll()
@@ -48,6 +49,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpGet("{username}")]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAllByUserName(string username)
         {
             var user = userManager.FindByNameAsync(username).Result;
@@ -139,6 +141,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public ActionResult<GeneralResponse> Edit(int id, ShipmentDTO updatedShipment)
         {
             Shipment OldShipment = shipmentRepository.GetById(id);
@@ -185,6 +188,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public ActionResult<GeneralResponse> Remove(int id)
         {
             try

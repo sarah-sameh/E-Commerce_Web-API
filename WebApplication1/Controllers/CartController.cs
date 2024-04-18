@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.DTO;
 using WebApplication1.Models;
@@ -20,6 +21,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAll()
         {
             var cartsWithProductNames = cartRepository.GetAll()
@@ -45,6 +47,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GeneralResponse>> AddToCart(CartDTO cartDTO)
         {
             var currentUser = await userManager.GetUserAsync(User);
@@ -82,6 +85,7 @@ namespace WebApplication1.Controllers
             }
         }
         [HttpPut]
+        [Authorize]
         public ActionResult<GeneralResponse> Edit(int id, CartDTO updatedCart)
         {
             Cart OldCart = cartRepository.GetById(id);
@@ -108,6 +112,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize]
         public ActionResult<GeneralResponse> RemoveFromCart(int id)
         {
             try

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.DTO;
 using WebApplication1.Models;
 using WebApplication1.Repository;
@@ -17,6 +18,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<GeneralResponse> GetAllCategory()
         {
             List<Category> categories = categoryRepository.GetAll();
@@ -37,6 +39,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public ActionResult<GeneralResponse> GetById(int id)
         {
             var category = categoryRepository.GetById(id);
@@ -70,6 +73,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult<GeneralResponse> AppCategory(CatDTO catDTO)
         {
             if (ModelState.IsValid == true)
@@ -107,6 +111,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public ActionResult<GeneralResponse> Edit(int id, CatDTO UpdatedCategory)
         {
             Category OldCategory = categoryRepository.GetById(id);
@@ -140,6 +145,7 @@ namespace WebApplication1.Controllers
 
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public IActionResult Remove(int id)
         {
             try
