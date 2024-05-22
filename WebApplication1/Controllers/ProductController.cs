@@ -42,6 +42,25 @@ namespace WebApplication1.Controllers
 
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Get()
+        {
+            List<Product> prods = productRepository.GetAll();
+            List<ProductDTO> pdtos = new List<ProductDTO>();
+            foreach (Product product in prods)
+            {
+                ProductDTO pd = new ProductDTO();
+                pd.Id = product.Id;
+                pd.Name = product.Name;
+                pd.Price = product.Price;
+                pd.Description = product.Description;
+                pd.Category_Id = product.Category_Id;
+                pdtos.Add(pd);
+            }
+            return Ok(pdtos);
+        }
+
         [HttpGet("{id:int}")]
         [Authorize]
         public ActionResult<GeneralResponse> GetById(int id)
@@ -192,3 +211,4 @@ namespace WebApplication1.Controllers
 
     }
 }
+
