@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.Controllers;
 
 namespace WebApplication1.Models
 {
@@ -12,6 +13,8 @@ namespace WebApplication1.Models
         public DbSet<Cart> carts { set; get; }
 
         public DbSet<WishList> wishLists { set; get; }
+
+        public DbSet<MyModel> myModels { set; get; }
         public Context() : base()
         {
 
