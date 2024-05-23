@@ -7,7 +7,7 @@ using WebApplication1.Repository;
 
 namespace WebApplication1.Controllers
 {
-//idiot 
+ 
     [Route("api/[controller]")]
     [ApiController]
     public class MyController : ControllerBase
