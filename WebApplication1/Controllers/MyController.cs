@@ -39,10 +39,13 @@ namespace WebApplication1.Controllers
         }
 
           [HttpGet]
-           public ActionResult GetById(int id)
+           public ActionResult GetById(int? id)
           {
-
-            MyModel myMod = myRepository.Get(id);
+            if(id == null)
+            {
+                return BadRequest();
+            }
+            MyModel myMod = myRepository.Get((int)id);
             var model = new MyDTO
             {
                 Id = myMod.Id,
