@@ -38,31 +38,73 @@ namespace WebApplication1.Controllers
            
         }
 
-        //[HttpGet]
-        //public ActionResult Get(int id)
-        //{
+          [HttpGet]
+           public ActionResult GetById(int id)
+          {
 
-        //}
+            MyModel myMod = myRepository.Get(id);
+            var model = new MyDTO
+            {
+                Id = myMod.Id,
+                Name = myMod.Name,
+                Department = myMod.Department,
+                Salary = myMod.Salary
 
-        //[HttpPost]
-        //[Authorize]
+            };
+            return Ok(model);
+           
+          }
 
-        //public ActionResult Create()
-        //{
+            [HttpPost]
+            [Authorize]
 
-        //}
+            public ActionResult Create(MyDTO objDTO)
+            {
+               if(ModelState.IsValid == true)
+            {
+                MyModel mymod = new MyModel()
+                {
+                    Name = objDTO.Name,
+                    Department = objDTO.Department,
+                    Salary = objDTO.Salary
+                };
+                myRepository.Create(mymod);
+                myRepository.Save();
+                return Ok(mymod);
 
-        //[HttpPut]
-        //public ActionResult Update(int id)
-        //{
+            }
+               return BadRequest();
+            }
 
-        //}
+            [HttpPut]
+            public ActionResult Update(MyDTO modelDTO)
+            {
+               MyModel oldModel = myRepository.Get(modelDTO.Id);
+               if(oldModel == null)
+            {
+                return BadRequest();
+            }
+               oldModel.Name = modelDTO.Name;
+               oldModel.Department = modelDTO.Department;
+               oldModel.Salary = modelDTO.Salary;
+               myRepository.Update(oldModel);
+               myRepository.Save();
+               return Ok(oldModel);
+            }
 
-        //[HttpDelete]
-        //public ActionResult Delete(int id)
-        //{
+            [HttpDelete]
+            public ActionResult Delete(int? id)
+            {
+            
+                if(id == null)
+                {
+                    return BadRequest();
+                }
+            myRepository.Delete((int)id);
+            return Ok();
 
-        //}
+            
+            }
 
     }
 }

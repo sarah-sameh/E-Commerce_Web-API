@@ -15,5 +15,31 @@ namespace WebApplication1.Repository
         {
             return context.myModels.ToList();  
         }
+
+        public MyModel Get(int id)
+        {
+            return context.myModels.FirstOrDefault(m => m.Id == id);
+        }
+
+        public void Create(MyModel obj)
+        {
+            context.Add(obj);
+        }
+
+        public void Update(MyModel obj)
+        {
+            context.Update(obj);
+        }
+
+        public void Delete(int id)
+        {
+           MyModel model = Get(id);
+            context.Remove(model);
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
     }
 }
